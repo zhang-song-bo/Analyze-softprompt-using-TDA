@@ -1,5 +1,3 @@
-# utils.py
-
 import torch
 import transformers
 import json

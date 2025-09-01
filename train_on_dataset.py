@@ -113,7 +113,7 @@ if __name__ == "__main__":
     )
     training_data = list(zip(all_questions, all_correct_answers))
     dataloader = torch.utils.data.DataLoader(
-        training_data, batch_size=config.batch_size, shuffle=False
+        training_data, batch_size=config.batch_size, shuffle=True
     )
     optim_ids, _ = utils.tokenize(
         tokenizer, config.optim_str_init, add_special_tokens=False

@@ -76,7 +76,7 @@ if __name__ == "__main__":
             optimizer.zero_grad()
 
             messages_with_optim = utils.add_optim_token_str_at_end(messages_batch) # <<< MODIFIED
-            input_ids, attn_mask = utils.tokenize(tokenizer, messages_with_optim, add_chat_template=True, padding="longest") # <<< MODIFIED
+            input_ids, attn_mask = utils.tokenize(tokenizer, messages_with_optim, add_chat_template=True, padding="longest", padding_side="left") # <<< MODIFIED
             input_ids, attn_mask = input_ids.to(model.device), attn_mask.to(model.device)
             left_input_ids, right_input_ids, left_attn_mask, right_attn_mask = utils.split_tokenized_messages_on_optim_str( # <<< MODIFIED
                 input_ids, attn_mask, tokenizer.optim_token_id)
