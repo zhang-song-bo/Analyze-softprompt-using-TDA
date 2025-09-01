@@ -1,13 +1,11 @@
-# track_accuracy_over_epochs.py
-
 import torch
 import os
 import re
 from tqdm.auto import tqdm
 from datetime import datetime
-import argparse  # <<< NEW: 引入argparse
+import argparse
 
-# <<< NEW: 从utils模块导入所有共享函数
+# 从utils模块导入所有共享函数
 import utils
 
 # =============================== 主程序 ===============================
@@ -71,11 +69,11 @@ if __name__ == "__main__":
 
                 num_prompt_tokens = soft_prompt_embeds.shape[1]
                 embedding_dim = model.config.hidden_size
-                positional_encoding = utils.get_sinusoidal_positional_encoding(  # <<< MODIFIED
+                positional_encoding = utils.get_sinusoidal_positional_encoding(
                     num_prompt_tokens, embedding_dim, dtype=model.dtype
                 ).to(model.device).unsqueeze(0)
 
-                prediction_list = utils.generate_with_softprompt(  # <<< MODIFIED
+                prediction_list = utils.generate_with_softprompt(
                     model=model,
                     tokenizer=tokenizer,
                     messages=[question_text],
@@ -85,7 +83,7 @@ if __name__ == "__main__":
                 )
                 prediction = prediction_list[0]
 
-                correct = utils.is_correct(prediction, single_data)  # <<< MODIFIED
+                correct = utils.is_correct(prediction, single_data)
                 status = "[正确]" if correct else "[错误]"
                 if correct:
                     correct_count += 1

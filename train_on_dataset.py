@@ -7,9 +7,8 @@ from tqdm.auto import tqdm
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-import argparse  # <<< NEW: 引入argparse模块
+import argparse
 
-# <<< NEW: 导入重构后的 utils 模块 >>>
 import utils
 
 # 配置日志
@@ -25,7 +24,7 @@ if not logger.hasHandlers():
     logger.setLevel(logging.INFO)
 
 
-# --- Softprompts 库的配置类 (保留) ---
+# --- Softprompts 库的配置---
 @dataclass
 class SoftPromptConfig:
     num_steps: int = 10
@@ -37,7 +36,6 @@ class SoftPromptConfig:
     verbose: bool = True
 
 
-# --- 保留的特定于此脚本的函数 ---
 def run_inference_and_record(model, tokenizer, questions, correct_answers, softprompt_embeds, epoch, results_file_path):
     """对此脚本的推理过程进行封装"""
     inference_batch_size = 4
@@ -82,7 +80,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # --- 2. MODIFIED: 使用args中的参数进行初始化 ---
+    # --- 2. 使用args中的参数进行初始化 ---
     os.makedirs(args.model_save_dir, exist_ok=True)
     os.makedirs(args.results_save_dir, exist_ok=True)
 
@@ -104,7 +102,7 @@ if __name__ == "__main__":
         f"物理批次大小: {args.batch_size}, 梯度累积步数: {args.accumulation_steps}, "
         f"有效批次大小: {args.batch_size * args.accumulation_steps}")
 
-    # --- 3. MODIFIED: Soft Prompt 训练循环配置 ---
+    # --- 3. Soft Prompt 训练循环配置 ---
     config = SoftPromptConfig(
         num_epochs=1,  # 外部循环控制总epochs
         batch_size=args.batch_size,
@@ -135,7 +133,7 @@ if __name__ == "__main__":
 
     training_losses = []
 
-    # --- 4. MODIFIED: 训练循环 ---
+    # --- 4. 训练循环 ---
     for epoch in range(1, args.epochs + 1):
         print(f"\n--- 训练 Epoch {epoch} ---")
         total_loss = 0
@@ -241,7 +239,7 @@ if __name__ == "__main__":
 
     print("Soft Prompt 在整个数据集上的训练与推理已完成。")
 
-    # --- 5. MODIFIED: 损失值绘制 ---
+    # --- 5. 损失值绘制 ---
     print("\n正在绘制训练损失曲线...")
     plt.figure(figsize=(14, 8))
     plt.plot(range(1, len(training_losses) + 1), training_losses, marker='o', linestyle='-')

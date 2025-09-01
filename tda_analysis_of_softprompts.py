@@ -1,12 +1,5 @@
-# -*- coding: utf-8 -*-
-
 """
-经典的TDA分析脚本 (基线版)
-
-功能:
-1.  使用固定的 `max_edge_length` 对所有epoch的soft prompt进行TDA分析。
-2.  为所有实验提供一个统一的拓扑分析基线。
-3.  计算并可视化核心的TDA指标（H₀/H₁数量、平均寿命、持久性熵）。
+TDA分析脚本
 """
 
 import gudhi as gd
@@ -17,13 +10,10 @@ import matplotlib.pyplot as plt
 
 # --- 1. 配置区域 ---
 
-# <<< 关键修改：指向“经典训练”脚本的输出目录
 MODEL_SAVE_DIR = "../models/"
-# <<< 关键修改：结果将保存在一个新的子目录中
 RESULTS_SAVE_DIR = "../tda_analysis/"
 os.makedirs(RESULTS_SAVE_DIR, exist_ok=True)
 
-# <<< 关键修改：定义一个固定的、全局的观察尺度
 # 这个值需要根据经验设定，如果条带图/持久性图中的特征过少或过多，可以调整此值
 MAX_EDGE_LENGTH = 3
 

@@ -186,7 +186,6 @@ def get_sinusoidal_positional_encoding(num_tokens: int, embedding_dim: int, dtyp
     pe[:, 1::2] = torch.cos(positions * div_term)
     return pe
 
-# <<< NEW: 函数从 train_on_dataset.py 移入 >>>
 def load_data_from_jsonl(file_path: str) -> list[dict]:
     """从jsonl文件中加载完整数据集。"""
     data = []

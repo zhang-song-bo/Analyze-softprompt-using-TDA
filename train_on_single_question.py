@@ -1,13 +1,11 @@
-# train_on_single_question.py
-
 import os
 import torch
 from tqdm.auto import tqdm
 from transformers import set_seed
 import matplotlib.pyplot as plt
-import argparse  # <<< NEW: 引入argparse
+import argparse
 
-# <<< NEW: 从utils模块导入所有共享函数
+# 从utils模块导入所有共享函数
 import utils
 
 # --- 主训练脚本 ---
@@ -114,7 +112,7 @@ if __name__ == "__main__":
             inference_output_filename = f"inference_results_epoch_{epoch:03d}.txt"
             inference_output_filepath = os.path.join(args.results_save_dir, inference_output_filename)
             
-            # <<< MODIFIED: 封装推理逻辑为一个函数，使其更清晰
+            # 封装推理逻辑为一个函数，使其更清晰
             def run_inference_and_record(epoch_num, output_path):
                 generation = utils.generate_with_softprompt(
                     model, tokenizer, question_text, optim_embeds.detach(),
